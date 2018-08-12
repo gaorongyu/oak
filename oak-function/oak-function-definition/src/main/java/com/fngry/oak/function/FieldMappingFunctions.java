@@ -6,7 +6,7 @@ import com.fngry.oak.function.impl.mapping.GroovyFieldMappingFunction;
 
 public class FieldMappingFunctions extends FunctionRegistry<FieldMappingFunction> {
 
-    private static FieldMappingFunctions INSTANCE = new FieldMappingFunctions();
+    public static FieldMappingFunctions INSTANCE = new FieldMappingFunctions();
 
     static {
         INSTANCE.load();
