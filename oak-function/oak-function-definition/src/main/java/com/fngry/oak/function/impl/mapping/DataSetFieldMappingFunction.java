@@ -1,20 +1,32 @@
 package com.fngry.oak.function.impl.mapping;
 
+import com.fngry.oak.dataset.provision.DataSetProvision;
 import com.fngry.oak.function.*;
-import com.fngry.oak.function.impl.FunctionSupport;
 
 public class DataSetFieldMappingFunction<T extends OakDataObject> implements FieldMappingFunction<T> {
 
     private static final long serialVersionUID = 228402724558461673L;
 
-    @FunctionParam(name = "datsSetName", type = FunctionParamType.STRING)
-    private String dataSetName;
+    @FunctionParam(type = FunctionParamType.DATA_SET_DEFINITION)
+    private Long dataSetDefintionId;
+
+    @FunctionParam(type = FunctionParamType.DATA_SET)
+    private Long dataSetId;
+
+    private DataSetProvision provision;
 
     @Override
     public Object apply(OakContext context, String fieldName, T target) throws Exception {
-        OakDataSet dataSet = context.getDataSet(dataSetName);
-        String keyDigest = FunctionSupport.digest(dataSet.getKeys(), target);
-        return dataSet.retrive(keyDigest);
+        DataSetProvision dataSetProvision = getDataSetProvision(context);
+        return dataSetProvision.retrive(target::get);
+    }
+
+    private DataSetProvision getDataSetProvision(OakContext context) {
+        if (this.provision != null) {
+            return this.provision;
+        }
+
+        return this.provision = context.getDataSetProvision(dataSetDefintionId, dataSetId);
     }
 
 }

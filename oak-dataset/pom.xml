@@ -10,6 +10,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>oak-dataset</artifactId>
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <description>The dataset module of oak</description>
+
+    <modules>
+        <module>oak-dataset-manage</module>
+        <module>oak-dataset-rest</module>
+        <module>oak-dataset-provision</module>
+        <module>oak-dataset-ext-tiny-provision</module>
+    </modules>
 
 
 </project>
