@@ -1,6 +1,7 @@
 package com.fngry.oak.dataset.provision;
 
 import com.fngry.oak.dataset.DataSetProvisionObject;
+import sun.net.www.http.HttpClient;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -10,6 +11,12 @@ import java.util.ServiceLoader;
 public class DataSetProvisionClient {
 
     private static Map<String, DataSetProvisionFactory> DATA_SET_PROVISION_FACTORIES = new HashMap<>();
+
+    private static final String DATA_SET_DEFINITION_ID = "dataSetDefinitionId";
+
+    private static final String DATA_SET_ID = "dataSetId";
+
+    private static final String BIZ_DATE = "bizDate";
 
     static {
         // load dataset factory
@@ -42,6 +49,15 @@ public class DataSetProvisionClient {
     }
 
     private DataSetProvisionObject select(Long dataSetDefinitionId, Long dataSetId, Date bizDate) {
+        if (dataSetDefinitionId == null) {
+            throw new IllegalArgumentException("dataSetDefinitionId is required");
+        }
+        Map<String, String> params = new HashMap<>();
+        params.put(DATA_SET_DEFINITION_ID, dataSetDefinitionId.toString());
+
+        if (dataSetId != null) {
+            params.put(DATA_SET_ID, dataSetId.toString());
+        }
 
         // http get
 

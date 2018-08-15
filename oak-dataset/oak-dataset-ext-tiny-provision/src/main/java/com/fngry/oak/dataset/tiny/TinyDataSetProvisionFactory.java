@@ -11,7 +11,7 @@ public class TinyDataSetProvisionFactory implements DataSetProvisionFactory {
 
     @Override
     public String getType() {
-        return null;
+        return TinyDataSetDefinitionObject.TYPE;
     }
 
     @Override

@@ -19,6 +19,7 @@
         <module>oak-dataset-rest</module>
         <module>oak-dataset-provision</module>
         <module>oak-dataset-ext-tiny-provision</module>
+        <module>oak-dataset-ext-tiny-rest</module>
     </modules>
 
 
