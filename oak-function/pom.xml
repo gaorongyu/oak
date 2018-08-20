@@ -20,4 +20,11 @@
     <name>${project.artifactId}</name>
     <description>The function module of oak</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>
