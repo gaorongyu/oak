@@ -1,5 +1,7 @@
 package com.fngry.oak.dataset.tiny;
 
+import com.fngry.oak.dataset.tiny.codec.Hex;
+
 import java.util.List;
 import java.util.function.Function;
 
@@ -19,6 +21,16 @@ public class TinyDataSetKeys {
         }
     }
 
+    public static byte[] apply(Long dataSetId, List<String> keys, Function<String, ?> keyProvider) throws Exception {
+        byte[] suffix = suffix(keys, keyProvider);
+        return apply(dataSetId, suffix);
+    }
+
+    public static byte[] apply(Long dataSetId, byte[] suffix) throws Exception {
+        byte[] prefix = prefix(dataSetId);
+        return apply(prefix, suffix);
+    }
+
     public static byte[] apply(byte[] prefix, byte[] suffix) {
         byte[] result = new byte[KEY_LENGTH];
         System.arraycopy(prefix, 0, result, 0, prefix.length);
@@ -32,15 +44,27 @@ public class TinyDataSetKeys {
     }
 
     public static byte[] suffix(List<String> keys, Function<String, ?> values) throws Exception {
-        return null;
+        return DigestUtil.digest(keys, values);
     }
 
     public static byte[] prefix(Long dataSetId) throws Exception {
-        return null;
+        return DigestUtil.digest(dataSetId);
     }
 
     public static String prefixString(Long dataSetId) throws Exception {
-        return null;
+        byte[] prefix = prefix(dataSetId);
+        return key(prefix);
+    }
+
+    private static String key(byte[] prefix) {
+        return Hex.encodeHexString(prefix);
+    }
+
+    public static byte[] key(String key) throws Exception {
+        if (key == null || "".equals(key.trim())) {
+            return new byte[] {0};
+        }
+        return Hex.decodeHex(key.toCharArray());
     }
 
 }
