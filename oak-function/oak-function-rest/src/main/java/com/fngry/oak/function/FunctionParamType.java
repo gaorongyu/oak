@@ -11,6 +11,7 @@ public enum FunctionParamType {
     COLLECTION,
     DATA_SET,
     DATA_SET_DEFINITION,
-    NUMBER
+    NUMBER,
+    ANY
 
 }
